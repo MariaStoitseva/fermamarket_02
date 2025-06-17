@@ -1,7 +1,7 @@
 from django.db import models
-from fermamarket.clients.models import ClientProfile
-from fermamarket.farmers.models import FarmerProfile
-from fermamarket.farmers.models import Product
+from fermamarket_02.clients.models import ClientProfile
+from fermamarket_02.farmers.models import FarmerProfile
+from fermamarket_02.farmers.models import Product
 
 
 class Order(models.Model):

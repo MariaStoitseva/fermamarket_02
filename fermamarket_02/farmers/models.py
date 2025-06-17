@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from fermamarket.customusers.models import CustomUser
+from fermamarket_02.customusers.models import CustomUser
 
 
 class FarmerProfile(models.Model):
