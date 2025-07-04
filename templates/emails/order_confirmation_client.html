@@ -1,10 +1,27 @@
-<h2>Здравейте {{ client.full_name }},</h2>
-<p>Благодарим за вашата поръчка №{{ order.id }}. Ето подробностите:</p>
-<ul>
-    {% for item in cart_items %}
-    <li>{{ item.product.title }} - количество: {{ item.quantity }}, цена: {{ item.total }} лв.</li>
-    {% endfor %}
-</ul>
-<p><strong>Обща сума: {{ total_price }} лв.</strong></p>
-<p>Ще се свържем с вас скоро за подробности относно доставката.</p>
-<p>Поздрави, <br>Екипът на FermaMarket</p>
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; }
+        h2 { color: #2a7b4f; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 5px; }
+        .total { font-weight: bold; margin-top: 10px; }
+        .footer { margin-top: 20px; font-size: 0.9em; color: #777; }
+    </style>
+</head>
+<body>
+    <h2>Здравейте {{ client.full_name }},</h2>
+    <p>Благодарим за вашата поръчка №<strong>{{ order.id }}</strong>. Ето подробностите:</p>
+    <ul>
+        {% for item in cart_items %}
+        <li>{{ item.product.title }} — количество: {{ item.quantity }}, цена: {{ item.total }} лв.</li>
+        {% endfor %}
+    </ul>
+    <p class="total">Обща сума: {{ total_price }} лв.</p>
+    <p>Ще се свържем с вас скоро относно доставката.</p>
+
+    <p class="footer">С уважение,<br>Екипът на <strong>FermaMarket</strong></p>
+</body>
+</html>

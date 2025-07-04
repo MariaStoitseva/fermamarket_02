@@ -1,4 +1,18 @@
-<h2>Здравейте {{ farmer.user.username }},</h2>
-<p>Имате нова поръчка във вашия фермерски магазин - №{{ order.id }}.</p>
-<p>Моля, проверете вашите поръчки за подробности и обработка.</p>
-<p>Поздрави,<br>Екипът на FermaMarket</p>
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; }
+        h2 { color: #2a7b4f; }
+        .footer { margin-top: 20px; font-size: 0.9em; color: #777; }
+    </style>
+</head>
+<body>
+    <h2>Здравейте {{ farmer.user.username }},</h2>
+    <p>Имате нова поръчка във вашия фермерски магазин – №<strong>{{ order.id }}</strong>.</p>
+    <p>Моля, влезте в системата, за да я обработите.</p>
+
+    <p class="footer">С уважение,<br>Екипът на <strong>FermaMarket</strong></p>
+</body>
+</html>

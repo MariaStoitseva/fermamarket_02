@@ -1,6 +1,5 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import Group
-from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -8,6 +7,7 @@ from django.views.decorators.http import require_http_methods
 from fermamarket_02.clients.models import ClientProfile
 from fermamarket_02.customusers.forms import RegistrationForm
 from fermamarket_02.farmers.models import FarmerProfile
+from utils.email_utils import send_registration_email
 
 
 def register_view(request):
@@ -28,12 +28,7 @@ def register_view(request):
 
             login(request, user)
 
-            # send_mail(
-            #     subject='Добре дошли във FermaMarket!',
-            #     message=f'Здравей, {user.username}!\n\nБлагодарим, че се регистрирахте във FermaMarket.',
-            #     from_email=None,  # взема DEFAULT_FROM_EMAIL
-            #     recipient_list=[user.email],
-            # )
+            send_registration_email(user)
 
             return redirect('home')
     else:

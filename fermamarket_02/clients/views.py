@@ -1,11 +1,17 @@
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
+from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
+
+from utils.email_utils import send_order_emails
 from .forms import ClientProfileForm, CheckoutForm
 from .models import ClientProfile
 from django.contrib.auth.decorators import login_required, permission_required
+
+from .. import settings
 from ..farmers.models import Product, Category
 from ..orders.models import Order, OrderItem
 
@@ -131,25 +137,6 @@ def view_cart(request):
     })
 
 
-# def view_cart(request):
-#     cart = request.session.get('cart', {})
-#     products = Product.objects.filter(id__in=cart.keys())
-#     cart_items = []
-#
-#     total_price = 0
-#     for product in products:
-#         quantity = cart[str(product.id)]
-#         total = product.price * quantity
-#         total_price += total
-#         cart_items.append({
-#             'product': product,
-#             'quantity': quantity,
-#             'total': total,
-#         })
-#
-#     return render(request, 'clients/shop-cart.html', {'cart_items': cart_items, 'total_price': total_price})
-
-
 @login_required
 @permission_required('clients.view_clientprofile', raise_exception=True)
 def checkout(request):
@@ -219,40 +206,7 @@ def checkout(request):
             request.session['cart'] = {}
 
             # Изпращане на имейли (по желание):
-            # subject_client = f'Вашата поръчка #{order.id} е получена'
-            # message_client = render_to_string('emails/order_confirmation_client.html', {
-            #     'order': order,
-            #     'cart_items': cart_items,
-            #     'total_price': total,
-            #     'client': client_profile,
-            # })
-            # send_mail(
-            #     subject_client,
-            #     message_client,
-            #     settings.DEFAULT_FROM_EMAIL,
-            #     [client_profile.user.email],
-            #     fail_silently=False,
-            #     html_message=message_client,
-            # )
-
-            # farmers_notified = set()
-            # for item in cart_items:
-            #     farmer = item['product'].farmer
-            #     if farmer.user.email not in farmers_notified:
-            #         farmers_notified.add(farmer.user.email)
-            #         subject_farmer = 'Нова поръчка във вашия фермерски магазин'
-            #         message_farmer = render_to_string('emails/order_notification_farmer.html', {
-            #             'farmer': farmer,
-            #             'order': order,
-            #         })
-            #         send_mail(
-            #             subject_farmer,
-            #             message_farmer,
-            #             settings.DEFAULT_FROM_EMAIL,
-            #             [farmer.user.email],
-            #             fail_silently=True,
-            #             html_message=message_farmer,
-            #         )
+            send_order_emails(order, cart_items, client_profile)
 
             return redirect('order_success')
     else:
@@ -263,6 +217,7 @@ def checkout(request):
         'cart_items': cart_items,
         'total_price': total_price,
     })
+
 
 @login_required
 @permission_required('clients.view_clientprofile', raise_exception=True)
