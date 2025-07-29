@@ -11,6 +11,14 @@ from utils.email_utils import send_registration_email
 
 
 def register_view(request):
+    if request.user.is_authenticated:
+        if request.user.has_perm('clients.view_clientprofile'):
+            return redirect('client_profile')
+        elif request.user.has_perm('farmers.view_farmerprofile'):
+            return redirect('farmer_profile')
+        else:
+            return redirect('home')
+
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
