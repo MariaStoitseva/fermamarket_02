@@ -1,9 +1,9 @@
 from django.urls import path
 from .views import edit_farmer_profile, farmer_orders, \
-    mark_as_sent, ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView, view_farmer_profile
+    mark_as_sent, ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView, FarmerProfileDetailView
 
 urlpatterns = [
-    path('profile/', view_farmer_profile, name='farmer_profile'),
+    path('profile/', FarmerProfileDetailView.as_view(), name='farmer_profile'),
     path('profile/edit/', edit_farmer_profile, name='farmer_profile_edit'),
     path('products/', ProductListView.as_view(), name='product_list'),
     path('products/create/', ProductCreateView.as_view(), name='create_product'),

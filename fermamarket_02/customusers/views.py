@@ -7,7 +7,7 @@ from django.views.decorators.http import require_http_methods
 from fermamarket_02.clients.models import ClientProfile
 from fermamarket_02.customusers.forms import RegistrationForm
 from fermamarket_02.farmers.models import FarmerProfile
-from utils import send_registration_email
+from utils.email_utils import send_registration_email
 
 
 def register_view(request):

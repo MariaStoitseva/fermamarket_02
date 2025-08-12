@@ -4,19 +4,21 @@ from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.db.models import Q
-
 from .forms import FarmerProfileForm, ProductForm
 from .models import FarmerProfile, Product
 from ..orders.models import OrderItem
 
 
-@login_required
-@permission_required('farmers.view_farmerprofile', raise_exception=True)
-def view_farmer_profile(request):
-    farmer = get_object_or_404(FarmerProfile, user=request.user)
-    return render(request, 'farmers/view_farmer_profile.html', {'farmer': farmer})
+@method_decorator(permission_required('farmers.view_farmerprofile', raise_exception=True), name='dispatch')
+class FarmerProfileDetailView(DetailView):
+    model = FarmerProfile
+    template_name = 'farmers/view_farmer_profile.html'
+    context_object_name = 'farmer'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(FarmerProfile, user=self.request.user)
 
 
 @login_required
