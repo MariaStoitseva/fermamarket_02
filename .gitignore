@@ -7,7 +7,7 @@ __pycache__/
 # Django
 db.sqlite3
 *.log
-.env
+fermamarket_02/.env
 
 # Virtual environment
 .venv/
