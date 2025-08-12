@@ -1,0 +1,15 @@
+Здравейте {{ client.full_name }},
+
+Благодарим ви за вашата поръчка №{{ order.id }}.
+
+Поръчани продукти:
+{% for item in cart_items %}
+- {{ item.product.title }} — количество: {{ item.quantity }}, цена: {{ item.total }} лв.
+{% endfor %}
+
+Обща сума: {{ total_price }} лв.
+
+Ще се свържем с вас скоро относно доставката.
+
+Поздрави,
+Екипът на FermaMarket
