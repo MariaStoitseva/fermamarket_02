@@ -9,4 +9,4 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('username', 'email')
     ordering = ('username',)
 
-    fieldsets = UserAdmin.fieldsets  # Използваме оригиналните без дублиране
+    fieldsets = UserAdmin.fieldsets

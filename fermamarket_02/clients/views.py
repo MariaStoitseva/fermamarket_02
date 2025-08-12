@@ -1,17 +1,13 @@
-from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
-from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
 
-from utils.email_utils import send_order_emails
+from utils import send_order_emails
 from .forms import ClientProfileForm, CheckoutForm
 from .models import ClientProfile
 from django.contrib.auth.decorators import login_required, permission_required
 
-from .. import settings
 from ..farmers.models import Product, Category
 from ..orders.models import Order, OrderItem
 
