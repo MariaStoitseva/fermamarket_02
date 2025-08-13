@@ -10,6 +10,9 @@
 Клиент – Потребител: client | Парола: fermapass
 Фермер – Потребител: fermer | Парола: fermapass
 
+[Admin panel](https://mariastoitseva.pythonanywhere.com/admin)
+Supperuser - Потребител: user | Парола: fermapass
+
 ---
 
 ## 🚀 Функционалности
