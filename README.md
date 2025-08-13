@@ -82,6 +82,7 @@ pip install -r requirements.txt
 пример в .env.example
 
 # 5. Направи миграции
+python manage.py makemigrations 
 python manage.py migrate
 
 # 6. Стартирай сървъра
